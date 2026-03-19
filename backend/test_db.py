@@ -62,20 +62,24 @@ def test_database():
         
         # 3. Query it back
         print("3. Querying data...")
-        result = db.query(App).filter(App.package_name == 'com.example.testapp').first()
-        print(f"   ✓ Found app: {result.app_name}")
-        print(f"   ✓ Developer: {result.developer}")
-        print(f"   ✓ Category: {result.category}")
-        print(f"   ✓ Created at: {result.created_at}\n")
-        
-        # 4. Get analysis through relationship
-        print("4. Getting analysis through relationship...")
-        if result.analyses:
-            analysis_result = result.analyses[0]
-            print(f"   ✓ Overall score: {analysis_result.overall_score}")
-            print(f"   ✓ Privacy score: {analysis_result.privacy_score}")
-            print(f"   ✓ Trackers: {analysis_result.trackers}")
-            print(f"   ✓ Policy analysis: {analysis_result.policy_analysis}\n")
+        result = db.query(App).filter(App.package_name == 'com.example.testapp2').first()
+        if result is not None:
+            print(f"   ✓ Found app: {result.app_name}")
+            print(f"   ✓ Developer: {result.developer}")
+            print(f"   ✓ Category: {result.category}")
+            print(f"   ✓ Created at: {result.created_at}\n")
+            # 4. Get analysis through relationship
+            print("4. Getting analysis through relationship...")
+            if hasattr(result, 'analyses') and result.analyses:
+                analysis_result = result.analyses[0]
+                print(f"   ✓ Overall score: {analysis_result.overall_score}")
+                print(f"   ✓ Privacy score: {analysis_result.privacy_score}")
+                print(f"   ✓ Trackers: {analysis_result.trackers}")
+                print(f"   ✓ Policy analysis: {analysis_result.policy_analysis}\n")
+            else:
+                print("   ⚠ No analyses found for this app.\n")
+        else:
+            print("   ⚠ No app found with the specified package name.\n")
         
         # 5. Count all apps
         print("5. Counting all apps...")
