@@ -209,9 +209,9 @@ CREATE TABLE analysis_results (
     design_score INTEGER CHECK (design_score BETWEEN 0 AND 100),
     
     -- Raw data (stored as JSONB for flexibility)
-    trackers JSONB,           -- List of trackers: [{"name": "...", "category": "..."}, ...]
+    trackers JSONB,           -- List of trackers: [{"name": "...", "category": "..."}, source: "...", verified: True/False, ...]
     permissions JSONB,        -- List of permissions: ["CAMERA", "LOCATION", ...]
-    policy_analysis JSONB,    -- Policy findings: {"sells_data": true, ...}
+    policy_analysis JSONB,    -- Policy findings: {"sells_data": true, data_used_for_tracking: [], data_linked_to_identity: [], data_not_linked: [], ...}
     review_summary JSONB,     -- Review analysis: {"battery_mentions": 45, ...}
     
     -- Metadata
